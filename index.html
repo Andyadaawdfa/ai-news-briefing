@@ -186,11 +186,34 @@
   @media (max-width: 640px) {
     .page { padding: 0 16px; }
     .hero h1 { font-size: 1.6rem; }
+    .hero p { font-size: 0.9rem; }
     .card-grid-3 { grid-template-columns: 1fr; }
     .stats-bar { flex-direction: column; }
     .fc-content { padding: 22px; }
     .fc-title { font-size: 1.2rem; }
     .back-to-top { bottom: 20px; right: 20px; }
+    .nav { padding: 14px 0; margin-bottom: 24px; }
+    .section { margin-bottom: 28px; }
+    .section-header h2 { font-size: 1rem; }
+    .summary-block { padding: 22px; }
+    .summary-block li { font-size: 0.82rem; }
+  }
+  @media (max-width: 400px) {
+    .page { padding: 0 10px; }
+    .hero h1 { font-size: 1.35rem; }
+    .hero p { font-size: 0.8rem; }
+    .nav-title { font-size: 0.8rem; }
+    .fc-title { font-size: 1.05rem; }
+    .fc-content { padding: 16px; }
+    .fc-desc { font-size: 0.8rem; }
+    .card-important { padding: 16px; }
+    .card-important h3 { font-size: 0.9rem; }
+    .card-important p { font-size: 0.78rem; }
+    .card-secondary { padding: 14px; }
+    .card-secondary h4 { font-size: 0.82rem; }
+    .stat-item { padding: 12px 14px; }
+    .stat-value { font-size: 1.3rem; }
+    .section-header h2 { font-size: 0.9rem; }
   }
 </style>
 </head>
@@ -638,6 +661,20 @@
     mouse.x = e.clientX;
     mouse.y = e.clientY;
   });
+  document.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 0) {
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  document.addEventListener('touchend', function() {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
+  // Reduce stars on mobile for performance
+  if (window.innerWidth < 768) totalStars = Math.floor(totalStars * 0.45);
+  else if (window.innerWidth < 1024) totalStars = Math.floor(totalStars * 0.7);
 
   // Subtle grid
   function drawGrid() {
