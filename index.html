@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 新闻简报 - 2026-04-28</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-card: #1a1f2e;
+      --bg-card-hover: #1f2637;
+      --text-primary: #e8edf5;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-gold: #f0b429;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-teal: #14b8a6;
+      --accent-red: #ef4444;
+      --border: #1e293b;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1a1f2e 50%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), var(--accent-blue), transparent);
+    }
+    .header-bg-glow {
+      position: absolute;
+      top: -60%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 32px 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(240, 180, 41, 0.1);
+      border: 1px solid rgba(240, 180, 41, 0.2);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .header-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #f0b429 0%, #f59e0b 50%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .header .meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .summary-banner {
+      max-width: 1200px;
+      margin: -20px auto 0;
+      padding: 0 32px;
+      position: relative;
+      z-index: 2;
+    }
+    .summary-banner-inner {
+      background: linear-gradient(135deg, rgba(240, 180, 41, 0.08), rgba(59, 130, 246, 0.08));
+      border: 1px solid rgba(240, 180, 41, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+    }
+    .summary-banner-inner p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .summary-banner-inner strong { color: var(--accent-gold); }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 32px; }
+
+    .section { margin-bottom: 40px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .section-header .icon { font-size: 1.5rem; line-height: 1; }
+    .section-header h2 { font-size: 1.35rem; font-weight: 600; color: var(--text-primary); }
+    .section-header .count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      padding: 2px 10px;
+      border-radius: 100px;
+      margin-left: 4px;
+    }
+
+    .card-grid-important { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+    .card-important {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      transition: all 0.25s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-important::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      transition: all 0.25s ease;
+    }
+    .card-important[data-source="openai"]::before { background: #10a37f; }
+    .card-important[data-source="google"]::before { background: #4285f4; }
+    .card-important[data-source="deepseek"]::before { background: #8b5cf6; }
+    .card-important[data-source="musk"]::before { background: #f59e0b; }
+    .card-important[data-source="anthropic"]::before { background: #d97706; }
+    .card-important[data-source="enterprise"]::before { background: #ef4444; }
+    .card-important:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(240, 180, 41, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    .card-important .card-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .card-important .card-tag.tag-openai { background: rgba(16, 163, 127, 0.15); color: #34d399; }
+    .card-important .card-tag.tag-google { background: rgba(66, 133, 244, 0.15); color: #60a5fa; }
+    .card-important .card-tag.tag-deepseek { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+    .card-important .card-tag.tag-musk { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .card-important .card-tag.tag-anthropic { background: rgba(217, 119, 6, 0.15); color: #f59e0b; }
+    .card-important .card-tag.tag-enterprise { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .card-important h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .card-important p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .card-important .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .card-important .card-meta a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .card-important .card-meta a:hover { color: var(--accent-gold); text-decoration: underline; }
+
+    .card-grid-secondary {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 14px;
+    }
+    .card-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+    .card-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(59, 130, 246, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .card-secondary .card-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .card-secondary .card-tag.tag-zh { background: rgba(239, 68, 68, 0.12); color: #f87171; }
+    .card-secondary .card-tag.tag-en { background: rgba(59, 130, 246, 0.12); color: #60a5fa; }
+    .card-secondary h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+    .card-secondary p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .card-secondary .card-meta { margin-top: 10px; font-size: 0.75rem; color: var(--text-muted); }
+    .card-secondary .card-meta a { color: var(--accent-blue); text-decoration: none; }
+    .card-secondary .card-meta a:hover { color: var(--accent-gold); text-decoration: underline; }
+
+    .collapse-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .collapse-toggle:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(100, 116, 139, 0.3);
+    }
+    .collapse-toggle .arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+    .collapse-toggle.active .arrow { transform: rotate(180deg); }
+    .collapse-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .collapse-content.open { max-height: 2000px; }
+    .collapse-inner { padding: 16px 0 0; }
+    .filtered-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .filtered-item .reason { font-size: 0.75rem; }
+    .filtered-item .title { color: var(--text-secondary); }
+
+    .summary-card {
+      background: linear-gradient(135deg, rgba(240, 180, 41, 0.06), rgba(59, 130, 246, 0.06));
+      border: 1px solid rgba(240, 180, 41, 0.12);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+    }
+    .summary-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .summary-card ul { list-style: none; padding: 0; }
+    .summary-card ul li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .summary-card ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-gold);
+      font-weight: bold;
+    }
+
+    .source-links { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .source-links .link-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .source-links .link-list a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 4px 12px;
+      background: var(--bg-card);
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .source-links .link-list a:hover {
+      color: var(--accent-gold);
+      border-color: rgba(240, 180, 41, 0.2);
+      background: rgba(240, 180, 41, 0.05);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 32px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .header-inner { padding: 32px 20px 28px; }
+      .header h1 { font-size: 1.8rem; }
+      .summary-banner { padding: 0 16px; margin-top: -16px; }
+      .container { padding: 20px 16px; }
+      .card-grid-secondary { grid-template-columns: 1fr; }
+      .card-important { padding: 18px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-bg-glow"></div>
+  <div class="header-inner">
+    <div class="header-badge">
+      <span class="dot"></span>
+      每日简报 · AI行业
+    </div>
+    <h1>AI 新闻简报</h1>
+    <p class="subtitle">2026年4月28日 · 星期二</p>
+    <div class="meta">
+      <span>追踪来源：OpenAI · Google · DeepSeek · Anthropic · 机器之心 · VentureBeat</span>
+    </div>
+  </div>
+</header>
+
+<div class="summary-banner">
+  <div class="summary-banner-inner">
+    <p><strong>今日焦点：</strong>DeepSeek V4 开源发布引爆"第二DeepSeek时刻"；微软与OpenAI解绑独家协议；Google Cloud Next '26 发布第八代TPU；Elon Musk诉OpenAI案今日开庭；Google向Anthropic追加400亿美元投资</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- section: important -->
+  <section class="section" id="section-important">
+    <div class="section-header">
+      <span class="icon">🔥</span>
+      <h2>重要新闻</h2>
+      <span class="count">7 条</span>
+    </div>
+    <div class="card-grid-important">
+
+      <div class="card-important" data-source="deepseek">
+        <span class="card-tag tag-deepseek">DeepSeek · 模型发布</span>
+        <h3>DeepSeek V4 正式发布：1.6万亿参数开源，性能逼近前沿，成本仅1/6</h3>
+        <p>DeepSeek 于4月24日发布 V4 系列模型，包括 Pro（1.6T总参数/49B激活）和 Flash（284B/13B）两个版本，均采用 MIT 开源协议。采用全新架构（Token-wise 压缩 + DSA 稀疏注意力），支持 1M Token 上下文。定价仅为 GPT-5.5 的 1/6，被业界称为"第二个 DeepSeek 时刻"，有可能彻底改变 AI 部署经济性。训练部分基于华为昇腾芯片，显示中国在减少对英伟达依赖方面取得进展。</p>
+        <div class="card-meta">
+          <span>4月24日</span>
+          <span>·</span>
+          <a href="https://api-docs.deepseek.com/news/news260424" target="_blank" rel="noopener">官方公告 →</a>
+          <span>·</span>
+          <a href="https://simonwillison.net/2026/Apr/24/deepseek-v4/" target="_blank" rel="noopener">Simon Willison 分析 →</a>
+        </div>
+      </div>
+
+      <div class="card-important" data-source="openai">
+        <span class="card-tag tag-openai">Microsoft / OpenAI · 战略重组</span>
+        <h3>微软与OpenAI重组合作：结束云独占，OpenAI可接入AWS和GCP</h3>
+        <p>微软与 OpenAI 宣布大幅修改合作协议：OpenAI 不再受限于 Azure 平台，可在 AWS、Google Cloud、Oracle 等所有云平台提供服务。微软不再向 OpenAI 收取收入分成，但 OpenAI 将继续向微软支付 20% 收入分成至 2030 年（有上限）。微软保留非独占 IP 许可至 2032 年。OpenAI 承诺到 2032 年在 Azure 上投入至少 2500 亿美元。双方同时删除了著名的 AGI 条款，这一变更被认为有助于应对欧美反垄断审查。</p>
+        <div class="card-meta">
+          <span>4月27-28日</span>
+          <span>·</span>
+          <a href="https://www.cnbctv18.com/technology/microsoft-openai-change-terms-of-deal-so-startup-can-court-amazon-and-others-ws-l-19894491.htm" target="_blank" rel="noopener">CNBC 报道 →</a>
+        </div>
+      </div>
+
+      <div class="card-important" data-source="google">
+        <span class="card-tag tag-google">Google Cloud · Next '26</span>
+        <h3>Google Cloud Next '26：发布第八代TPU、Gemini企业Agent平台</h3>
+        <p>Google Cloud Next '26（4月22-23日，拉斯维加斯，3万人参加）发布多项重大产品：第八代 TPU 芯片（TPU 8t 训练性能 2.8x、TPU 8i 推理性价比提升 80%）；Gemini Enterprise Agent Platform 作为企业级 AI Agent 管理平台；CEO Sundar Pichai 宣布 Google 75% 的新代码由 AI 生成。同时确认与 Apple 的合作——新 Siri 将基于 Gemini，2026年推出。</p>
+        <div class="card-meta">
+          <span>4月22-23日</span>
+          <span>·</span>
+          <a href="https://cloud.google.com/blog/topics/google-cloud-next/next26-day-1-recap/" target="_blank" rel="noopener">Google Cloud 博客 →</a>
+        </div>
+      </div>
+
+      <div class="card-important" data-source="musk">
+        <span class="card-tag tag-musk">Elon Musk · 诉讼</span>
+        <h3>Elon Musk 诉 OpenAI 案今日开庭：决定 OpenAI 百亿美元IPO走向</h3>
+        <p>备受瞩目的 Elon Musk 诉 OpenAI、Sam Altman 及 Greg Brockman 案于今日（4月28日）开庭。Musk 指控 OpenAI 背离非营利使命，过度商业化并与微软绑定。4月27日已选出9人陪审团。关键证人包括 Shivon Zilis、Musk、Altman 及微软 CEO Satya Nadella。此案结果可能直接影响 OpenAI 计划中的百亿美元 IPO。</p>
+        <div class="card-meta">
+          <span>4月28日</span>
+          <span>·</span>
+          <a href="https://b.bssnews.net/news/382100" target="_blank" rel="noopener">新闻报道 →</a>
+        </div>
+      </div>
+
+      <div class="card-important" data-source="anthropic">
+        <span class="card-tag tag-anthropic">Google → Anthropic · 投资</span>
+        <h3>Google 向 Anthropic 追加 400 亿美元投资，Claude 企业市场份额超越 Gemini</h3>
+        <p>Google 宣布向 Anthropic 投资 100 亿美元现金（估值 3500 亿美元），外加 300 亿美元里程碑条件。包括提供 5GW 算力及 100 万块 TPU 芯片。此前 4 天 Amazon 刚承诺向 Anthropic 追加 330 亿美元。Anthropic 年化收入已达 300 亿美元（2025年1月仅10亿），Claude 占据 32% 企业 LLM API 市场份额（超越 GPT-4o 的 25%），财富 10 强中 8 家是 Claude 客户。</p>
+        <div class="card-meta">
+          <span>4月下旬</span>
+          <span>·</span>
+          <a href="https://thenextweb.com/news/google-40-billion-anthropic-investment-gemini" target="_blank" rel="noopener">TNW 报道 →</a>
+        </div>
+      </div>
+
+      <div class="card-important" data-source="openai">
+        <span class="card-tag tag-openai">OpenAI · 财务</span>
+        <h3>WSJ：OpenAI 未达收入及用户目标，CFO 对IPO持保留态度</h3>
+        <p>据《华尔街日报》报道，OpenAI 未能实现 2025 年底达到 10 亿周活 ChatGPT 用户的内部目标，2026 年多次月度收入目标也未达成，在编程和企业市场被 Anthropic 抢占份额。CFO Sarah Friar 对年底 IPO 表示担忧，认为公司尚未准备好满足公开报告标准。Sam Altman 和 Friar 联合声明称该报道"荒谬"。与此同时，Altman 发布 AI 财富税/监管蓝图。</p>
+        <div class="card-meta">
+          <span>4月28日</span>
+          <span>·</span>
+          <a href="https://www.36kr.com/p/3785656214838530" target="_blank" rel="noopener">36氪报道 →</a>
+        </div>
+      </div>
+
+      <div class="card-important" data-source="enterprise">
+        <span class="card-tag tag-enterprise">行业报告 · 信任危机</span>
+        <h3>企业 AI 信任危机：85% 在试点 AI Agent，仅 5% 敢用于生产</h3>
+        <p>RSA Conference 2026 报告显示：85% 的企业在运行 AI Agent 试点，仅 5% 信任它们用于生产；88% 的组织报告了 AI Agent 安全事件；95% 的企业 AI 实施未能扩展到生产。Cisco CEO 警告："委托 vs. 可信委托就是破产与市场领导者的区别。" 每个失败 AI 项目平均成本 720 万美元。EU AI Act 8月生效，治理压力持续加大。</p>
+        <div class="card-meta">
+          <span>4月25-27日</span>
+          <span>·</span>
+          <a href="https://saassentinel.com/2026/04/26/85-of-enterprises-run-ai-agents-only-5-trust-them-for-production/" target="_blank" rel="noopener">报告详情 →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- section: worth knowing -->
+  <section class="section" id="section-secondary">
+    <div class="section-header">
+      <span class="icon">📌</span>
+      <h2>值得了解</h2>
+      <span class="count">12 条</span>
+    </div>
+    <div class="card-grid-secondary">
+
+      <div class="card-secondary">
+        <span class="card-tag tag-en">小米 · 开源模型</span>
+        <h4>小米发布 MiMo-V2.5 开源模型，最高 1.02 万亿参数</h4>
+        <p>采用 MIT 协议，定价极具竞争力（$1-3/M tokens），加入与 DeepSeek 的开源模型竞争。</p>
+        <div class="card-meta"><a href="https://ainave.com/tech-news/xiaomi-unleashes-powerful-open-source-ai-models-to-compete-with-industry-giants" target="_blank">来源 →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-zh">英伟达 · 量子AI</span>
+        <h4>黄仁勋定调：AI 是量子机器的操作系统</h4>
+        <p>英伟达发布 Quantum-Neural v1 开源量子AI模型，普通 GPU 模拟 30+ 量子比特，效率提升 500 倍。</p>
+        <div class="card-meta"><a href="https://www.jiqizhixin.com/articles/2026-04-21-13" target="_blank">机器之心 →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-zh">华为 · AI眼镜</span>
+        <h4>华为发布 AI 眼镜，三星苹果预计2026-2027跟进</h4>
+        <p>起售价 2499 元，支持多模态 AI 能力。三星预计7月推出，苹果目标年底或明年初。</p>
+        <div class="card-meta"><a href="https://www.trendforce.com/news/2026/04/24/news-huawei-launches-ai-glasses-as-meta-leads-the-market-samsung-apple-reportedly-eye-2026-2027-entry/" target="_blank">TrendForce →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-en">OpenAI · 硬件</span>
+        <h4>OpenAI 与高通/联发科合作开发 AI 手机处理器</h4>
+        <p>郭明錤报告：OpenAI 正开发 AI 原生智能手机处理器，定制操作系统，立讯精密为制造伙伴，量产目标 2028。</p>
+        <div class="card-meta"><a href="https://finance.yahoo.com/markets/stocks/articles/qualcomm-stock-draws-attention-major-021700010.html" target="_blank">Yahoo Finance →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-en">OpenAI · Sora关闭</span>
+        <h4>OpenAI 关闭 Sora，放弃10亿美元迪士尼授权</h4>
+        <p>运行成本过高，OpenAI 将算力优先分配给编程 Agent Codex。</p>
+        <div class="card-meta"><a href="https://www.theverge.com/archives/ai-artificial-intelligence/2026/4/4" target="_blank">The Verge →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-en">Anthropic · Claude Code</span>
+        <h4>Anthropic 承认 Claude Code 三个Bug致性能下降</h4>
+        <p>推理级别降低、缓存丢失、回复限制等失误导致用户强烈反弹。从Pro计划移除的测试引发激烈反对后回滚。</p>
+        <div class="card-meta"><a href="https://fortune.com/2026/04/24/anthropic-engineering-missteps-claude-code-performance-decline-user-backlash/" target="_blank">Fortune →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-en">Anthropic · 实验</span>
+        <h4>Claude Agent 用 $100 成功谈判 186 笔交易</h4>
+        <p>"Project Deal"：Claude Agent 为 69 名员工完成 500+ 商品中的 186 笔真实交易，较强模型获得更好定价。</p>
+        <div class="card-meta"><a href="https://www.moneycontrol.com/technology/anthropic-claude-went-shopping-with-100-and-negotiated-186-deals-here-s-what-it-bought-article-13899938.html" target="_blank">Moneycontrol →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-en">安全 · 泄露</span>
+        <h4>Claude Code 源码意外泄露 51 万行</h4>
+        <p>Anthropic 分发产品时暴露了 51.2 万行源代码，包含可用于解密的文件。</p>
+        <div class="card-meta"><a href="https://en.fnnews.com/news/202604020750344783" target="_blank">FN News →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-zh">机器之心 · 神秘模型</span>
+        <h4>神秘模型 "MotuBrain" 登顶世界模型和动作策略双榜</h4>
+        <p>匿名模型在 WorldArena 和 RoboTwin2.0 双榜夺冠，RoboTwin 平均得分 96.0 显著领先第二名。</p>
+        <div class="card-meta"><a href="https://www.jiqizhixin.com/articles/2026-04-21-13" target="_blank">机器之心 →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-zh">软银 · 物理AI</span>
+        <h4>软银成立"物理AI"公司，索尼本田等支持</h4>
+        <p>聚焦 2030 年实现机器/机器人自主控制，AI 从数字走向物理世界。</p>
+        <div class="card-meta"><a href="https://www.theverge.com/archives/ai-artificial-intelligence/2026/4/4" target="_blank">The Verge →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-zh">欧盟 · 监管</span>
+        <h4>欧盟要求 Google 向 AI 竞争对手开放 Android</h4>
+        <p>公众咨询截至 5月13日。EU AI Act 将于 2026年8月生效。</p>
+        <div class="card-meta"><a href="http://hk.aastocks.com/tc/stocks/news/aafn-con/NOW.1520752/latest-news/AAFN" target="_blank">AASTOCKS →</a></div>
+      </div>
+
+      <div class="card-secondary">
+        <span class="card-tag tag-en">Forrester · 趋势</span>
+        <h4>Forrester 2026 十大新兴技术：AI 走出数字世界</h4>
+        <p>短期：Agentic商业、AI安全；中期：Agentic开发、人形机器人；长期：量子计算。</p>
+        <div class="card-meta"><a href="https://www.hpcwire.com/aiwire/2026/04/15/forresters-top-10-emerging-technologies-for-2026-ai-is-no-longer-confined-to-digital-workflows/" target="_blank">HPCwire →</a></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- section: filtered -->
+  <section class="section" id="section-filtered">
+    <button class="collapse-toggle" onclick="toggleCollapse(this)">
+      <span>🗑️ 已过滤内容</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapse-content">
+      <div class="collapse-inner">
+        <div class="filtered-item">
+          <span class="reason">营销内容</span>
+          <span class="title">Allbirds（鞋业公司）宣布转型 AI 公司，股价涨 600%</span>
+        </div>
+        <div class="filtered-item">
+          <span class="reason">疑似假新闻</span>
+          <span class="title">Meta 计划用 AI 克隆体取代扎克伯格</span>
+        </div>
+        <div class="filtered-item">
+          <span class="reason">营销软文</span>
+          <span class="title">Teradata 获 Nucleus Research 2026 DSML 领导者评价</span>
+        </div>
+        <div class="filtered-item">
+          <span class="reason">个股分析/非核心</span>
+          <span class="title">Micron 是否为 Ken Griffin 最值得买入的 AI 股票</span>
+        </div>
+        <div class="filtered-item">
+          <span class="reason">过度炒作/实质不足</span>
+          <span class="title">Marvell 因与 Google AI 芯片谈判股价上涨 5%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- section: summary -->
+  <section class="section" id="section-summary">
+    <div class="summary-card">
+      <h3>今日总结</h3>
+      <ul>
+        <li><strong>开源模型进入新纪元：</strong>DeepSeek V4 和小米 MiMo-V2.5 相继开源，中国 AI 模型在性能逼近前沿的同时将成本拉低到 1/6，全球 AI 部署经济性正在被重新定义。</li>
+        <li><strong>格局重塑加速：</strong>微软/OpenAI 解绑独家协议、Google 400 亿美元押注 Anthropic、OpenAI 遭遇财务压力——三大 AI 巨头的力量对比正发生根本性变化，Anthropic 在企业市场迅速崛起。</li>
+        <li><strong>AI Agent 进入"治理期"：</strong>从 Google Agent Platform 到企业 95% 的失败率，行业共识正在形成——构建 Agent 不难，难的是大规模可信部署。信任和安全成为 2026 年最关键议题。</li>
+        <li><strong>算力军备竞赛升级：</strong>Google 第八代 TPU、英伟达量子 AI 模型、OpenAI 自研手机芯片——硬件层竞争从 GPU 扩展到 TPU、量子、边缘设备。</li>
+        <li><strong>AI 从数字走向物理：</strong>软银"物理 AI"公司、华为 AI 眼镜、1km 感知 LiDAR——AI 正在走出屏幕，进入机器人、眼镜、车辆和真实世界。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- section: source links -->
+  <section class="section source-links" id="section-sources">
+    <button class="collapse-toggle" onclick="toggleCollapse(this)">
+      <span>原始来源链接</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapse-content">
+      <div class="collapse-inner">
+        <div class="link-list">
+          <a href="https://api-docs.deepseek.com/news/news260424" target="_blank" rel="noopener">DeepSeek V4 官方公告</a>
+          <a href="https://simonwillison.net/2026/Apr/24/deepseek-v4/" target="_blank" rel="noopener">Simon Willison · DeepSeek V4</a>
+          <a href="https://www.cnbctv18.com/technology/microsoft-openai-change-terms-of-deal-so-startup-can-court-amazon-and-others-ws-l-19894491.htm" target="_blank" rel="noopener">CNBC · 微软OpenAI重组</a>
+          <a href="https://cloud.google.com/blog/topics/google-cloud-next/next26-day-1-recap/" target="_blank" rel="noopener">Google Cloud Next '26</a>
+          <a href="https://thenextweb.com/news/google-40-billion-anthropic-investment-gemini" target="_blank" rel="noopener">TNW · Google投资Anthropic</a>
+          <a href="https://www.36kr.com/p/3785656214838530" target="_blank" rel="noopener">36氪 · OpenAI财务</a>
+          <a href="https://fortune.com/2026/04/24/anthropic-engineering-missteps-claude-code-performance-decline-user-backlash/" target="_blank" rel="noopener">Fortune · Claude Code</a>
+          <a href="https://saassentinel.com/2026/04/26/85-of-enterprises-run-ai-agents-only-5-trust-them-for-production/" target="_blank" rel="noopener">SaaS Sentinel · AI信任危机</a>
+          <a href="https://www.jiqizhixin.com/articles/2026-04-21-13" target="_blank" rel="noopener">机器之心 · MotuBrain</a>
+          <a href="https://www.trendforce.com/news/2026/04/24/news-huawei-launches-ai-glasses-as-meta-leads-the-market-samsung-apple-reportedly-eye-2026-2027-entry/" target="_blank" rel="noopener">TrendForce · AI眼镜</a>
+          <a href="https://www.hpcwire.com/aiwire/2026/04/15/forresters-top-10-emerging-technologies-for-2026-ai-is-no-longer-confined-to-digital-workflows/" target="_blank" rel="noopener">HPCwire · Forrester趋势</a>
+          <a href="https://www.theverge.com/archives/ai-artificial-intelligence/2026/4/4" target="_blank" rel="noopener">The Verge · AI存档</a>
+          <a href="https://b.bssnews.net/news/382100" target="_blank" rel="noopener">BSS News · Musk诉OpenAI</a>
+          <a href="https://ainave.com/tech-news/xiaomi-unleashes-powerful-open-source-ai-models-to-compete-with-industry-giants" target="_blank" rel="noopener">Ainave · 小米开源</a>
+          <a href="https://www.21jingji.com/article/20260428/herald/9580d09a85f57a257aefcc223a4d676b.html" target="_blank" rel="noopener">21经济 · 科技早参</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <p>AI 新闻简报 · 由 Claude 自动生成 · 2026年4月28日</p>
+  <p style="margin-top:4px;font-size:0.72rem;">信息来源：DeepSeek、OpenAI、Google、Anthropic、VentureBeat、The Verge、机器之心、36氪等</p>
+</footer>
+
+<script>
+  function toggleCollapse(btn) {
+    btn.classList.toggle('active');
+    var content = btn.nextElementSibling;
+    if (content) content.classList.toggle('open');
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var srcToggle = document.querySelector('#section-sources .collapse-toggle');
+    if (srcToggle) {
+      srcToggle.classList.add('active');
+      if (srcToggle.nextElementSibling) srcToggle.nextElementSibling.classList.add('open');
+    }
+  });
+</script>
+
+</body>
+</html>
